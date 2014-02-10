@@ -16,7 +16,10 @@ on early-init
 on init
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
-    mkdir /storage/sdcard1 0555 root root
+
+    mkdir /mnt/sdcard1 0050 root secondary_r
+    mkdir /mnt/sdcard1/microsd 0555 root root
+    symlink /mnt/sdcard1/microsd /storage/sdcard1
 
     export SECONDARY_STORAGE /storage/sdcard1
     export EXTERNAL_STORAGE /storage/emulated/legacy
@@ -296,6 +299,11 @@ on property:ro.debuggable=1
     chmod 0666 /sys/class/invensense/mpu/dbg_reg
     chmod 0666 /sys/class/invensense/mpu/dbg_dat
 
+service dhcpcd_p2p_p2p0 /system/bin/dhcpcd p2p-p2p0-0
+    class main
+    disabled
+    oneshot
+
 service dhcpcd_wlan0 /system/bin/dhcpcd -aABKL
     class main
     disabled
@@ -402,6 +410,13 @@ on property:ril.testmode=0
 # Very first boot. This case should be below the above case in init.rc so that
 # the above case, does not get executed on first boot. Very first boot is setting
 # persist.wlan.ti.calibrated=1 which triggers the above case.
+
+service dns_masq /system/bin/dnsmasq --no-daemon --no-resolv --no-poll --dhcp-option-force=43,ANDROID_METERED --dhcp-range=192.168.42.2,192.168.42.254,1h &
+    class main
+    user dhcp
+    group dhcp wifi system
+    disabled
+    oneshot
 
 service p2p_supplicant /system/bin/wpa_supplicant \
     -Dnl80211 -iwlan0 -puse_p2p_group_interface=1 -e/data/misc/wifi/entropy.bin -c/data/misc/wifi/wpa_supplicant.conf \
