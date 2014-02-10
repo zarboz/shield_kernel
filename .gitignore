@@ -84,3 +84,13 @@ GTAGS
 *.orig
 *~
 \#*#
+
+shieldSKU/TwistedZero_StarKissed-JB43-Roth.zip
+
+shieldSKU/boot.img
+
+buildImg/boot.img
+
+buildImg/zImage
+
+0
