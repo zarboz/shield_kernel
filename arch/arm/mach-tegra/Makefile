@@ -118,6 +118,7 @@ obj-$(CONFIG_ARCH_TEGRA_11x_SOC)	+= cpuquiet.o
 else
 obj-$(CONFIG_ARCH_TEGRA_3x_SOC)         += cpu-tegra3.o
 endif
+endif
 ifeq ($(CONFIG_TEGRA_MPDECISION),y)
 obj-$(CONFIG_ARCH_TEGRA_3x_SOC)         += tegra_mpdecision.o
 obj-$(CONFIG_ARCH_TEGRA_3x_SOC)         += tegra_rq_stats.o
