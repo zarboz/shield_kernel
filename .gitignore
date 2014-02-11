@@ -84,3 +84,17 @@ GTAGS
 *.orig
 *~
 \#*#
+
+0
+
+buildImg/boot.img
+
+buildImg/zImage
+
+buildKernel.sh
+
+shieldSKU/TwistedZero_StarKissed-JB43-Roth.zip
+
+shieldSKU/boot.img
+
+tegra11_android_defconfig
